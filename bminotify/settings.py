@@ -1,0 +1,20 @@
+KLANT_NAAM = None
+BMC = None
+BOT_TOKEN = None
+CHAT_ID = None
+
+COM_PORT = None
+CHAT_ID = None
+BAUDRATE = None
+PARITY = None
+STOPBITS = None
+BYTESIZE = None
+TIMEOUT = None
+
+DEVELOPMENT = None
+LOG_FILE = None
+
+STARTUP_MSG = None
+
+STOP_READ = False
+STOP_WEEKLY_TEST = False
