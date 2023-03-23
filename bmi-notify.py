@@ -4,13 +4,15 @@ import time
 import logging
 import asyncio
 import threading
-# from .version import __version__
 
 from bminotify import settings
 from bminotify.config import Configuration
 from bminotify.notify import Bot, weekly_test_schedule
 from bminotify.serial import serial_read
 
+
+__version__ = "1.0.1"
+__date__ = "23-03-2023"
 
 
 class BMINotify:
@@ -45,7 +47,7 @@ class BMINotify:
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
         if settings.STARTUP_MSG:
-            asyncio.get_event_loop().run_until_complete(Bot().send('Startup BMI-Notify!'))
+            asyncio.get_event_loop().run_until_complete(Bot().send(f'Startup BMI-Notify! \nVersion: {__version__} \nDate: {__date__}'))
 
         # Starting threads
         logger.info("Starting read thread.")
