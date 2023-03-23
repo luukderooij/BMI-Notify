@@ -38,7 +38,7 @@ class Bot:
         try:         
             self.application = Application.builder().token(settings.BOT_TOKEN).build()
         except:
-            logger.error("Something went wrong with setting up the bot!")
+            logger.error("Something went wrong with initializing telegram bot!")
 
 
     async def send(self, msg):
@@ -54,7 +54,7 @@ class Bot:
             except:
                 logger.error("Something went wrong with sending the messsage!")
         else: 
-            logger.info('First set up a chat id')
+            logger.info('Can`t send message. First set up a chat id')
 
 
 
