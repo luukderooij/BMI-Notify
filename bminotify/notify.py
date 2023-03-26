@@ -24,7 +24,7 @@ def weekly_test():
         loop.close()
 
 def weekly_test_schedule():
-    schedule.every(10).seconds.do(weekly_test)
+    schedule.every().monday.at('13:00').do(weekly_test)
     
     while True:
         schedule.run_pending()

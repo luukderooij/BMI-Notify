@@ -11,8 +11,8 @@ from bminotify.notify import Bot, weekly_test_schedule
 from bminotify.serial import serial_read
 
 
-__version__ = "1.0.1"
-__date__ = "23-03-2023"
+__version__ = "1.0.2"
+__date__ = "26-03-2023"
 
 
 class BMINotify:
