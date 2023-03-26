@@ -55,7 +55,3 @@ class Bot:
                 logger.error("Something went wrong with sending the messsage!")
         else: 
             logger.info('Can`t send message. First set up a chat id')
-
-
-
-

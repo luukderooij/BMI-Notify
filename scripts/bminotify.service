@@ -1,0 +1,15 @@
+[Unit]
+Description=BMI-Notify Daemon
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=bminotify
+Group=bminotify
+
+Type=forking
+GuessMainPID=no
+ExecStart=/opt/bminotify/bmi-notify.py
+
+[Install]
+WantedBy=multi-user.target
