@@ -1,4 +1,4 @@
-Install 
+# Install 
 
 sudo addgroup --system bminotify
 sudo adduser --disabled-password --system --home /var/lib/bminotify --gecos "BMI-Notify" --ingroup bminotify bminotify
@@ -16,3 +16,8 @@ sudo chmod 644 /etc/systemd/system/bminotify.service
 sudo systemctl enable bminotify
 sudo systemctl start bminotify
 sudo systemctl status bminotify
+
+
+# Update
+
+sudo -u bminotify git pull
