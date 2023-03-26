@@ -63,11 +63,13 @@ class BMINotify:
         # Main loop
         while True:
             time.sleep(1)
-            a = input("Type exit too stop: ")
-            if a == 'exit':
-                settings.STOP_READ = True
-                settings.STOP_WEEKLY_TEST = True
-                break
+
+            if settings.DEVELOPMENT:
+                a = input("Type exit too stop: ")
+                if a == 'exit':
+                    settings.STOP_READ = True
+                    settings.STOP_WEEKLY_TEST = True
+                    break
 
 
 def main():

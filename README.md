@@ -13,6 +13,10 @@ sudo chown root:root /etc/systemd/system/bminotify.service
 sudo chmod 644 /etc/systemd/system/bminotify.service
 
 
+sudo apt install python3-pip
+sudo -u bminotify python3 -m pip install -r requirements.txt
+
+
 sudo systemctl enable bminotify
 sudo systemctl start bminotify
 sudo systemctl status bminotify
