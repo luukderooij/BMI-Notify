@@ -15,6 +15,9 @@ class Esser:
     def esser8000(self, message):
         logger.info(f'Message {message}')
 
+        m_text = ''
+        c1, c2=False, False
+        
         if message>'':
                 m_text += message + '\n' + '\r'
                 c1, c2=True, False
