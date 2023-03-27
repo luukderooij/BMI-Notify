@@ -55,6 +55,9 @@ class SerialPort:
                             if settings.BMC.str.lower() == 'penta':
                                 notify = panels.Hertek()
                                 notify.penta(data)
+                            elif settings.BMC.str.lower() == 'esser8000':
+                                notify = panels.Esser()
+                                notify.esser8000(data)
                             elif settings.BMC == None:
                                 notify = panels.Generic()
                                 notify.generic()
