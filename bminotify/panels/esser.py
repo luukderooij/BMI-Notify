@@ -44,4 +44,15 @@ class Esser:
                 
             logger.info(message)
 
-            asyncio.get_event_loop().run_until_complete(Bot().send(message))
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+
+            #asyncio.get_event_loop().run_until_complete(Bot().send(message))
+
+            try:
+                loop.run_until_complete(Bot().send(message))
+            except SystemExit:
+                logger.error('Could not send notification!')
+                raise
+            finally:
+                loop.close()
