@@ -13,6 +13,7 @@ class Esser:
         pass
     
     def esser8000(self, message):
+        m_text = message
         m_text=m_text.strip()
         m_text=m_text.replace('F I R E', 'BRAND')
         m_text=m_text.replace('FIRE', 'BRAND')
