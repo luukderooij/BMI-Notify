@@ -13,8 +13,13 @@ class Esser:
         pass
     
     def esser8000(self, message):
+        logger.info(f'Message {message}')
+        
         m_text = message
+
         m_text=m_text.strip()
+
+        logger.info(f'M-text 1:  {m_text}')
         m_text=m_text.replace('F I R E', 'BRAND')
         m_text=m_text.replace('FIRE', 'BRAND')
         m_text=m_text.replace('B R A N D', 'BRAND')
@@ -22,6 +27,7 @@ class Esser:
         m_text=m_text.replace('FAULT', 'STORING')
         m_text=m_text.replace('S T O R I N G', 'STORING')
 
+        logger.info(f'M-text 2:  {m_text}')
 
         #Verzend alleen brand en storings meldingen
         if m_text.startswith('BRAND') or m_text.startswith('Normaal') or m_text.startswith('STORING'):
@@ -29,7 +35,7 @@ class Esser:
             if m_text.startswith('BRAND gereset'):
                 message = emoji.emojize(f':check_mark: {m_text}')
             elif m_text.startswith('BRAND'):
-                message = emoji.emojize(f':fire: {message}')
+                message = emoji.emojize(f':fire: {m_text}')
 
             if m_text.startswith('STORING hersteld'):
                 message = emoji.emojize(f':check_mark: {m_text}')
