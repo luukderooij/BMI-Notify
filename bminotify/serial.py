@@ -13,9 +13,11 @@ def serial_read():
     serial_port.run()
 
 class SerialPort:
-    def __init__(self):
+    def __init__(self, encoding, newline):
         self.ser = None
         self.ser_io = None
+        self.encoding = encoding
+        self.newline = newline
 
     def open(self):
         try:
@@ -27,10 +29,11 @@ class SerialPort:
                     bytesize=settings.BYTESIZE,
                     timeout=settings.TIMEOUT
                 )
-            self.ser_io = io.TextIOWrapper(io.BufferedRWPair(self.ser, self.ser), encoding='ascii', newline='\r\n')
         except Exception as e:
             logger.error(f"Could not open the COM port!")
             logger.error(f"{e}")
+
+            self.ser_io = io.TextIOWrapper(io.BufferedRWPair(self.ser, self.ser), encoding=self.encoding, newline=self.newline)
 
     def close(self):
         self.ser.close()

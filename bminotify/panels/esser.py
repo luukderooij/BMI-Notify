@@ -2,9 +2,11 @@ import logging
 import asyncio
 
 import emoji
+import time
 
+import settings
 from bminotify.notify import Bot
-
+from bminotify.serial import SerialPort
 
 logger = logging.getLogger(__name__)
 
@@ -12,8 +14,70 @@ class Esser:
     def __init__(self):
         pass
     
-    def esser8000(self, message):
-        logger.info(f'Message {message}')
+
+    def esser8000(self):
+
+        ser = SerialPort(encoding='ascii', newline='\r\n')
+        ser.open()
+
+        try:
+            while not settings.STOP_READ:
+                try:
+                    data = ser.read()
+                    if data:  
+                        logger.info(f'Messages: {data}')
+
+                except:
+                    logger.error("Error reading from serial port!")
+                    time.sleep(5)
+                    ser.open()
+                    continue
+                if settings.STOP_READ:
+                    logger.info('Closing read thread.')
+
+        except KeyboardInterrupt:
+            pass
+        finally:
+            ser.close()
+
+
+        # def run(self):
+        #     self.open()
+        #     if self.ser:
+        #         try:
+        #             while not settings.STOP_READ:
+        #                 try:
+        #                     data = self.read()
+        #                     if data:                            
+        #                         # print(data.strip())
+
+        #                         if settings.BMC == 'penta':
+        #                             notify = panels.Hertek()
+        #                             notify.penta(data)
+        #                         elif settings.BMC == 'esser8000':
+        #                             notify = panels.Esser()
+        #                             notify.esser8000(data)
+        #                         elif settings.BMC == None:
+        #                             notify = panels.Generic()
+        #                             notify.generic()
+
+        #                 except serial.SerialException as e:
+        #                     logger.error("Error reading from serial port!")
+        #                     logger.error(f"{e}")
+        #                     time.sleep(5)
+        #                     self.open()
+        #                     continue
+        #             if settings.STOP_READ:
+        #                 logger.info('Closing read thread.')
+        #         except KeyboardInterrupt:
+        #             pass
+        #         finally:
+        #             self.close()
+
+
+
+
+
 
         # m_text = ''
         # c1, c2=False, False

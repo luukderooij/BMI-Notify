@@ -5,7 +5,7 @@ import logging
 import asyncio
 import threading
 
-from bminotify import settings
+from bminotify import settings, panels
 from bminotify.config import Configuration
 from bminotify.notify import Bot, weekly_test_schedule
 from bminotify.serial import serial_read
@@ -52,8 +52,24 @@ class BMINotify:
         # Starting threads
         logger.info("Starting read thread.")
 
-        serial_read_tread = threading.Thread(target=serial_read)
+        # serial_read_tread = threading.Thread(target=serial_read)
+        # serial_read_tread.start()
+
+        # serial_read_tread = threading.Thread(target=serial_read)
+        # serial_read_tread.start()
+
+        if settings.BMC == 'penta':
+            system = panels.Hertek()
+            serial_read_tread = threading.Thread(target= system.penta)                            
+        elif settings.BMC == 'esser8000':
+            system = panels.Esser()
+            serial_read_tread = threading.Thread(target= system.esser8000)
+        elif settings.BMC == None:
+            system = panels.Generic()
+            serial_read_tread = threading.Thread(target= system.generic)
+
         serial_read_tread.start()
+
 
         logger.info("Starting weekly test thread.")
 
