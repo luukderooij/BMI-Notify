@@ -28,7 +28,8 @@ class Esser:
                     data = ser.read()
                     if data:
                         if data > '':
-                            message =+  data + + '\n' + '\r'
+                            data = data + '\n\r'
+                            message =+ data
 
                         if data == '':
                             logger.info(f'Messages: {message}')
