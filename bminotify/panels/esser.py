@@ -18,7 +18,11 @@ class Esser:
     def esser8000(self):
 
         ser = SerialPort(encoding='ascii', newline='\r\n')
+
+        print(ser)
         ser.open()
+        print(ser)
+
 
         try:
             while not settings.STOP_READ:
@@ -30,6 +34,7 @@ class Esser:
                 except Exception as e:
                     logger.error("Error reading from serial port!")
                     logger.error(e)
+                    ser.close()
                     time.sleep(5)
                     ser.open()
                     continue
