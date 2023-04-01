@@ -27,8 +27,9 @@ class Esser:
                     if data:  
                         logger.info(f'Messages: {data}')
 
-                except:
+                except Exception as e:
                     logger.error("Error reading from serial port!")
+                    logger.error(e)
                     time.sleep(5)
                     ser.open()
                     continue
