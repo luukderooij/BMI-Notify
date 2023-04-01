@@ -16,7 +16,7 @@ class Esser:
     
 
     def esser8000(self):
-        m_text = ''
+        message = ''
         c1, c2=False, False
 
         ser = SerialPort(encoding='ascii', newline='\r\n')
@@ -26,43 +26,42 @@ class Esser:
             while not settings.STOP_READ:
                 try:
                     data = ser.read()
-                    message = data
+                    
+                    if len(data) > 1:
+                        print(data)
+                        message = message + data + '\n\r'
+                        print(message)
+                        c1, c2=True, False
 
-                    if message>'':
-                            m_text += message + '\n' + '\r'
-                            c1, c2=True, False
+                    if len(data) < 1:
+                        c2=True
 
-                    if message=='':
-                            c2=True
-
-                    if c1==True and c2==True and m_text.strip()>'':
-                        m_text=m_text.strip()
-                        m_text=m_text.replace('F I R E', 'BRAND')
-                        m_text=m_text.replace('FIRE', 'BRAND')
-                        m_text=m_text.replace('B R A N D', 'BRAND')
-                        m_text=m_text.replace('F A U L T', 'STORING')
-                        m_text=m_text.replace('FAULT', 'STORING')
-                        m_text=m_text.replace('S T O R I N G', 'STORING')
+                    if c1==True and c2==True and message.strip()>'':
+                        message=message.strip()
+                        message=message.replace('F I R E', 'BRAND')
+                        message=message.replace('FIRE', 'BRAND')
+                        message=message.replace('B R A N D', 'BRAND')
+                        message=message.replace('F A U L T', 'STORING')
+                        message=message.replace('FAULT', 'STORING')
+                        message=message.replace('S T O R I N G', 'STORING')
 
 
                         #Verzend alleen brand en storings meldingen
-                        if m_text.startswith('BRAND') or m_text.startswith('Normaal') or m_text.startswith('STORING'):
+                        if message.startswith('BRAND') or message.startswith('Normaal') or message.startswith('STORING'):
 
                             
-                            if m_text.startswith('BRAND gereset'):
-                                message = emoji.emojize(f':check_mark: {m_text}')
-                            elif m_text.startswith('BRAND'):
-                                message = emoji.emojize(f':fire: {m_text}')
+                            if message.startswith('BRAND gereset'):
+                                message = emoji.emojize(f':check_mark: {message}')
+                            elif message.startswith('BRAND'):
+                                message = emoji.emojize(f':fire: {message}')
 
-                            if m_text.startswith('STORING hersteld'):
-                                message = emoji.emojize(f':check_mark: {m_text}')
-                            elif m_text.startswith('STORING'):
+                            if message.startswith('STORING hersteld'):
+                                message = emoji.emojize(f':check_mark: {message}')
+                            elif message.startswith('STORING'):
                                 message = emoji.emojize(f':warning: {m_text}')
                                 
                             loop = asyncio.new_event_loop()
                             asyncio.set_event_loop(loop)
-
-                            #asyncio.get_event_loop().run_until_complete(Bot().send(message))
 
                             try:
                                 loop.run_until_complete(Bot().send(message))
@@ -73,7 +72,7 @@ class Esser:
                                 loop.close()
 
 
-                        m_text=''
+                        message=''
                         c1, c2=False, False
 
 
@@ -205,7 +204,23 @@ class Esser:
 
 
 
+    # if len(data)> 1:
+    #                     print(data)
+    #                     data = data + '\n\r'
+    #                     message = message + data
+    #                     print(message)
 
+    #                 if len(data) < 1 and len(message) > 1:
+    #                     loop = asyncio.new_event_loop()
+    #                     asyncio.set_event_loop(loop)
+    #                     try:
+    #                         loop.run_until_complete(Bot().send(message))
+    #                     except SystemExit:
+    #                         logger.error('Could not send notification!')
+    #                         raise
+    #                     finally:
+    #                         loop.close()
+    #                     message = ''
 
 
 
