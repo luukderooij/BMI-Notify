@@ -8,7 +8,7 @@ import threading
 from bminotify import settings, panels
 from bminotify.config import Configuration
 from bminotify.notify import Bot, weekly_test_schedule
-from bminotify.serial import serial_read
+
 
 
 __version__ = "1.0.2"

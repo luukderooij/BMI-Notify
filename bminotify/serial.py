@@ -8,10 +8,6 @@ from bminotify import settings, panels
 
 logger = logging.getLogger(__name__)
 
-def serial_read():
-    serial_port = SerialPort()
-    serial_port.run()
-
 class SerialPort:
     def __init__(self, encoding, newline):
         self.ser = None
@@ -43,39 +39,6 @@ class SerialPort:
 
     def read(self):
         return self.ser_io.readline()
-
-    def run(self):
-        self.open()
-        if self.ser:
-            try:
-                while not settings.STOP_READ:
-                    try:
-                        data = self.read()
-                        if data:                            
-                            # print(data.strip())
-
-                            if settings.BMC == 'penta':
-                                notify = panels.Hertek()
-                                notify.penta(data)
-                            elif settings.BMC == 'esser8000':
-                                notify = panels.Esser()
-                                notify.esser8000(data)
-                            elif settings.BMC == None:
-                                notify = panels.Generic()
-                                notify.generic()
-
-                    except serial.SerialException as e:
-                        logger.error("Error reading from serial port!")
-                        logger.error(f"{e}")
-                        time.sleep(5)
-                        self.open()
-                        continue
-                if settings.STOP_READ:
-                    logger.info('Closing read thread.')
-            except KeyboardInterrupt:
-                pass
-            finally:
-                self.close()
 
 
 
