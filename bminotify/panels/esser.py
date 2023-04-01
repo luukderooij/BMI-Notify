@@ -4,7 +4,7 @@ import asyncio
 import emoji
 import time
 
-import settings
+from bminotify import settings
 from bminotify.notify import Bot
 from bminotify.serial import SerialPort
 
