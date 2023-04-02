@@ -1,8 +1,8 @@
+import time
 import logging
 import asyncio
 
 import emoji
-import time
 
 from bminotify import settings
 from bminotify.notify import Bot
@@ -15,7 +15,7 @@ class Esser:
         pass
 
 
-    def esser8000(self):
+    def iq8(self):
         message = ''
 
         ser = SerialPort(encoding='ascii', newline=None)

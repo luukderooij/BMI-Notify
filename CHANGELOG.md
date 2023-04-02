@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Log file rotation.
 
 ### Fixed
-- Esser 8000 Panel.
+- Esser IQ8 Panel.
 
 ### Changed
 - Startup message.
@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.3] - 2023-03-27
 
 ### Added
-- Esser 8000 Panel.
+- Esser IQ8 Panel.
 
 ## [1.0.2] - 2023-03-26
 

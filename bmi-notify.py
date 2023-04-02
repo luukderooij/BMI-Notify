@@ -56,9 +56,9 @@ class BMINotify:
         if settings.BMC == 'penta':
             system = panels.Hertek()
             serial_read_tread = threading.Thread(target= system.penta)                            
-        elif settings.BMC == 'esser8000':
+        elif settings.BMC == 'iq8':
             system = panels.Esser()
-            serial_read_tread = threading.Thread(target= system.esser8000)
+            serial_read_tread = threading.Thread(target= system.iq8)
         elif settings.BMC == None:
             system = panels.Generic()
             serial_read_tread = threading.Thread(target= system.generic)
