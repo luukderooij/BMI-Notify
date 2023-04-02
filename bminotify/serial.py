@@ -39,10 +39,3 @@ class SerialPort:
 
     def read(self):
         return self.ser_io.readline()
-
-
-
-
-
-
- 

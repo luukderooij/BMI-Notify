@@ -27,10 +27,8 @@ class Esser:
                     data = ser.read()
                     data = data.lstrip()
 
-
                     if len(data) > 1:
                         message = message + data
-
 
                     if len(message) > 1 and len(data) <= 1:
                         message = message.replace('F I R E', 'BRAND')
@@ -40,7 +38,7 @@ class Esser:
                         message = message.replace('FAULT', 'STORING')
                         message = message.replace('S T O R I N G', 'STORING')
 
-                        logger.info(f'\n {message}')
+                        logger.info(f'\n{message}')
 
                         #Verzend alleen brand en storings meldingen
                         if message.startswith('BRAND') or message.startswith('Normaal') or message.startswith('STORING'):
