@@ -46,12 +46,12 @@ class Esser:
                         if message.startswith('BRAND') or message.startswith('Normaal') or message.startswith('STORING'):
 
                             if message.startswith('BRAND gereset'):
-                                message = emoji.emojize(f':check_mark: {message}')
+                                message = emoji.emojize(f':check_mark_button: {message}')
                             elif message.startswith('BRAND'):
                                 message = emoji.emojize(f':fire: {message}')
 
                             if message.startswith('STORING hersteld'):
-                                message = emoji.emojize(f':check_mark: {message}')
+                                message = emoji.emojize(f':check_mark_button: {message}')
                             elif message.startswith('STORING'):
                                 message = emoji.emojize(f':warning: {message}')
 
