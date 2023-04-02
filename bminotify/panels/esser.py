@@ -40,7 +40,7 @@ class Esser:
                         message = message.replace('FAULT', 'STORING')
                         message = message.replace('S T O R I N G', 'STORING')
 
-                        logger.info(f'{message}')
+                        logger.info(f'\n {message}')
 
                         #Verzend alleen brand en storings meldingen
                         if message.startswith('BRAND') or message.startswith('Normaal') or message.startswith('STORING'):
