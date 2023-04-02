@@ -5,13 +5,14 @@ import logging
 import asyncio
 import threading
 
+from logging.handlers import RotatingFileHandler
+
 from bminotify import settings, panels
 from bminotify.config import Configuration
 from bminotify.notify import Bot, weekly_test_schedule
 
 
-
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 __date__ = "2-4-2023"
 
 
@@ -32,7 +33,8 @@ class BMINotify:
         logger.setLevel(logging.INFO)
 
         formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(name)s : %(message)s')
-        file_handler = logging.FileHandler(settings.LOG_FILE)
+        file_handler = RotatingFileHandler(settings.LOG_FILE, mode='a', maxBytes=5*1024*1024, 
+                                 backupCount=2, encoding=None, delay=0)
         file_handler.setLevel(logging.INFO)
         file_handler.setFormatter(formatter)
 
@@ -47,7 +49,7 @@ class BMINotify:
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
         if settings.STARTUP_MSG:
-            asyncio.get_event_loop().run_until_complete(Bot().send(f'BMI-Notify! \nVersie: {__version__} \nDate: {__date__}'))
+            asyncio.get_event_loop().run_until_complete(Bot().send(f'BMI-Notify! \nVersie: {__version__} \nDatum: {__date__}'))
 
         logger.info("Starting system read thread.")
 

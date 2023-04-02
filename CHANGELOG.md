@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.4] - 2023-04-02
 
+### Added
+- Log file rotation.
+
 ### Fixed
 - Esser 8000 Panel.
 
