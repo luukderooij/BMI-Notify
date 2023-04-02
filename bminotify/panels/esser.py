@@ -53,7 +53,7 @@ class Esser:
                             if message.startswith('STORING hersteld'):
                                 message = emoji.emojize(f':check_mark: {message}')
                             elif message.startswith('STORING'):
-                                message = emoji.emojize(f':warning: {m_text}')
+                                message = emoji.emojize(f':warning: {message}')
 
                             loop = asyncio.new_event_loop()
                             asyncio.set_event_loop(loop)
