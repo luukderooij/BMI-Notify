@@ -13,43 +13,38 @@ logger = logging.getLogger(__name__)
 class Esser:
     def __init__(self):
         pass
-    
+
 
     def esser8000(self):
         message = ''
-        c1, c2=False, False
 
-        ser = SerialPort(encoding='ascii', newline='\r\n')
+        ser = SerialPort(encoding='ascii', newline=None)
         ser.open()
 
         try:
             while not settings.STOP_READ:
                 try:
                     data = ser.read()
-                    
+                    data = data.lstrip()
+
+
                     if len(data) > 1:
-                        print(data)
-                        message = message + data + '\n\r'
-                        print(message)
-                        c1, c2=True, False
+                        message = message + data
 
-                    if len(data) < 1:
-                        c2=True
 
-                    if c1==True and c2==True and message.strip()>'':
-                        message=message.strip()
-                        message=message.replace('F I R E', 'BRAND')
-                        message=message.replace('FIRE', 'BRAND')
-                        message=message.replace('B R A N D', 'BRAND')
-                        message=message.replace('F A U L T', 'STORING')
-                        message=message.replace('FAULT', 'STORING')
-                        message=message.replace('S T O R I N G', 'STORING')
+                    if len(message) > 1 and len(data) <= 1:
+                        message = message.replace('F I R E', 'BRAND')
+                        message = message.replace('FIRE', 'BRAND')
+                        message = message.replace('B R A N D', 'BRAND')
+                        message = message.replace('F A U L T', 'STORING')
+                        message = message.replace('FAULT', 'STORING')
+                        message = message.replace('S T O R I N G', 'STORING')
 
+                        logger.info(f'{message}')
 
                         #Verzend alleen brand en storings meldingen
                         if message.startswith('BRAND') or message.startswith('Normaal') or message.startswith('STORING'):
 
-                            
                             if message.startswith('BRAND gereset'):
                                 message = emoji.emojize(f':check_mark: {message}')
                             elif message.startswith('BRAND'):
@@ -59,7 +54,7 @@ class Esser:
                                 message = emoji.emojize(f':check_mark: {message}')
                             elif message.startswith('STORING'):
                                 message = emoji.emojize(f':warning: {m_text}')
-                                
+
                             loop = asyncio.new_event_loop()
                             asyncio.set_event_loop(loop)
 
@@ -71,32 +66,7 @@ class Esser:
                             finally:
                                 loop.close()
 
-
                         message=''
-                        c1, c2=False, False
-
-
-
-
-
-
-
-
-
-
-                    # print(data)
-                    # if data:
-                    #     print(data)
-                    #     if data > '':
-                    #         data = data + '\n\r'
-                    #         message =+ data
-
-                    #     if data == '':
-                    #         logger.info(f'Messages: {message}')
-                    #         message = ''
-
-
-
 
                 except Exception as e:
                     logger.error("Error reading from serial port!")
@@ -111,158 +81,3 @@ class Esser:
             pass
         finally:
             ser.close()
-
-
-        # def run(self):
-        #     self.open()
-        #     if self.ser:
-        #         try:
-        #             while not settings.STOP_READ:
-        #                 try:
-        #                     data = self.read()
-        #                     if data:                            
-        #                         # print(data.strip())
-
-        #                         if settings.BMC == 'penta':
-        #                             notify = panels.Hertek()
-        #                             notify.penta(data)
-        #                         elif settings.BMC == 'esser8000':
-        #                             notify = panels.Esser()
-        #                             notify.esser8000(data)
-        #                         elif settings.BMC == None:
-        #                             notify = panels.Generic()
-        #                             notify.generic()
-
-        #                 except serial.SerialException as e:
-        #                     logger.error("Error reading from serial port!")
-        #                     logger.error(f"{e}")
-        #                     time.sleep(5)
-        #                     self.open()
-        #                     continue
-        #             if settings.STOP_READ:
-        #                 logger.info('Closing read thread.')
-        #         except KeyboardInterrupt:
-        #             pass
-        #         finally:
-        #             self.close()
-
-
-
-
-
-
-        # m_text = ''
-        # c1, c2=False, False
-
-        # if message>'':
-        #         m_text += message + '\n' + '\r'
-        #         c1, c2=True, False
-
-        # if message=='':
-        #         c2=True
-
-        # if c1==True and c2==True and m_text.strip()>'':
-        #     m_text=m_text.strip()
-        #     m_text=m_text.replace('F I R E', 'BRAND')
-        #     m_text=m_text.replace('FIRE', 'BRAND')
-        #     m_text=m_text.replace('B R A N D', 'BRAND')
-        #     m_text=m_text.replace('F A U L T', 'STORING')
-        #     m_text=m_text.replace('FAULT', 'STORING')
-        #     m_text=m_text.replace('S T O R I N G', 'STORING')
-
-
-        #     #Verzend alleen brand en storings meldingen
-        #     if m_text.startswith('BRAND') or m_text.startswith('Normaal') or m_text.startswith('STORING'):
-
-                
-        #         if m_text.startswith('BRAND gereset'):
-        #             message = emoji.emojize(f':check_mark: {m_text}')
-        #         elif m_text.startswith('BRAND'):
-        #             message = emoji.emojize(f':fire: {m_text}')
-
-        #         if m_text.startswith('STORING hersteld'):
-        #             message = emoji.emojize(f':check_mark: {m_text}')
-        #         elif m_text.startswith('STORING'):
-        #             message = emoji.emojize(f':warning: {m_text}')
-                    
-        #         loop = asyncio.new_event_loop()
-        #         asyncio.set_event_loop(loop)
-
-        #         #asyncio.get_event_loop().run_until_complete(Bot().send(message))
-
-        #         try:
-        #             loop.run_until_complete(Bot().send(message))
-        #         except SystemExit:
-        #             logger.error('Could not send notification!')
-        #             raise
-        #         finally:
-        #             loop.close()
-
-
-        #     m_text=''
-        #     c1, c2=False, False
-
-
-
-    # if len(data)> 1:
-    #                     print(data)
-    #                     data = data + '\n\r'
-    #                     message = message + data
-    #                     print(message)
-
-    #                 if len(data) < 1 and len(message) > 1:
-    #                     loop = asyncio.new_event_loop()
-    #                     asyncio.set_event_loop(loop)
-    #                     try:
-    #                         loop.run_until_complete(Bot().send(message))
-    #                     except SystemExit:
-    #                         logger.error('Could not send notification!')
-    #                         raise
-    #                     finally:
-    #                         loop.close()
-    #                     message = ''
-
-
-
-
-        # m_text = message
-
-        # m_text=m_text.strip()
-
-        # logger.info(f'M-text 1:  {m_text}')
-        # m_text=m_text.replace('F I R E', 'BRAND')
-        # m_text=m_text.replace('FIRE', 'BRAND')
-        # m_text=m_text.replace('B R A N D', 'BRAND')
-        # m_text=m_text.replace('F A U L T', 'STORING')
-        # m_text=m_text.replace('FAULT', 'STORING')
-        # m_text=m_text.replace('S T O R I N G', 'STORING')
-
-        # logger.info(f'M-text 2:  {m_text}')
-
-        # #Verzend alleen brand en storings meldingen
-        # if m_text.startswith('BRAND') or m_text.startswith('Normaal') or m_text.startswith('STORING'):
-
-        #     if m_text.startswith('BRAND gereset'):
-        #         message = emoji.emojize(f':check_mark: {m_text}')
-        #     elif m_text.startswith('BRAND'):
-        #         message = emoji.emojize(f':fire: {m_text}')
-
-        #     if m_text.startswith('STORING hersteld'):
-        #         message = emoji.emojize(f':check_mark: {m_text}')
-        #     elif m_text.startswith('STORING'):
-        #         message = emoji.emojize(f':warning: {m_text}')
-                
-        #     logger.info(message)
-
-        #     loop = asyncio.new_event_loop()
-        #     asyncio.set_event_loop(loop)
-
-        #     #asyncio.get_event_loop().run_until_complete(Bot().send(message))
-
-        #     try:
-        #         loop.run_until_complete(Bot().send(message))
-        #     except SystemExit:
-        #         logger.error('Could not send notification!')
-        #         raise
-        #     finally:
-        #         loop.close()

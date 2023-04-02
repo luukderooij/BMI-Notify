@@ -11,8 +11,8 @@ from bminotify.notify import Bot, weekly_test_schedule
 
 
 
-__version__ = "1.0.2"
-__date__ = "26-03-2023"
+__version__ = "1.0.3"
+__date__ = "2-4-2023"
 
 
 class BMINotify:
@@ -47,16 +47,9 @@ class BMINotify:
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
         if settings.STARTUP_MSG:
-            asyncio.get_event_loop().run_until_complete(Bot().send(f'Startup BMI-Notify! \nVersion: {__version__} \nDate: {__date__}'))
+            asyncio.get_event_loop().run_until_complete(Bot().send(f'BMI-Notify! \nVersie: {__version__} \nDate: {__date__}'))
 
-        # Starting threads
-        logger.info("Starting read thread.")
-
-        # serial_read_tread = threading.Thread(target=serial_read)
-        # serial_read_tread.start()
-
-        # serial_read_tread = threading.Thread(target=serial_read)
-        # serial_read_tread.start()
+        logger.info("Starting system read thread.")
 
         if settings.BMC == 'penta':
             system = panels.Hertek()
