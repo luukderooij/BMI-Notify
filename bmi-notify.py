@@ -49,7 +49,7 @@ class BMINotify:
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
         if settings.STARTUP_MSG:
-            asyncio.get_event_loop().run_until_complete(Bot().send(f'BMI-Notify! \nVersie: {__version__} \nDatum: {__date__}'))
+            asyncio.get_event_loop().run_until_complete(Bot().send(f'{settings.INSTALLER} \nLocatie: {settings.KLANT_NAAM} \nVersie: {__version__} \nDatum: {__date__}'))
 
         logger.info("Starting system read thread.")
 
