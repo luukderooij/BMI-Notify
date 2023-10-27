@@ -13,6 +13,7 @@ TIMEOUT = None
 
 DEVELOPMENT = None
 LOG_FILE = None
+INSTALLER = None
 
 STARTUP_MSG = None
 

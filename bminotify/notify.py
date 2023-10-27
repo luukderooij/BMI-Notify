@@ -37,6 +37,9 @@ class Bot:
     def __init__(self):
         try:         
             self.application = Application.builder().token(settings.BOT_TOKEN).build()
+        except telegram.error.InvalidToken as e: 
+            logger.error(e)
+            exit()
         except:
             logger.error("Something went wrong with initializing telegram bot!")
 
@@ -55,3 +58,4 @@ class Bot:
                 logger.error("Something went wrong with sending the messsage!")
         else: 
             logger.info('Can`t send message. First set up a chat id')
+            exit()

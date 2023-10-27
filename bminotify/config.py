@@ -66,9 +66,12 @@ class Configuration:
         settings.BYTESIZE = self.check_key_int("Serial", "bytesize", 8) # EIGHTBITS
         settings.TIMEOUT = self.check_key_int("Serial", "timeout", 1)
 
-
+        # General
+        settings.INSTALLER = self.check_key_str('General', 'installer_name', 'BMI-Notify!')
         settings.DEVELOPMENT = self.check_key_bool('General', 'development', False)
         settings.STARTUP_MSG = self.check_key_bool('General', 'startupmsg', True)
+
+        # Logger
         settings.LOG_FILE = self.check_key_str('Logger', 'log_file', os.path.join(settings.DATA_DIR, "bminotify.log"))
 
         with open(self.config_file, 'w') as file:
