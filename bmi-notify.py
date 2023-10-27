@@ -12,8 +12,8 @@ from bminotify.config import Configuration
 from bminotify.notify import Bot, weekly_test_schedule
 
 
-__version__ = "1.0.4"
-__date__ = "2-4-2023"
+__version__ = "1.0.5"
+__date__ = "26-10-2023"
 
 
 class BMINotify:
@@ -62,7 +62,7 @@ class BMINotify:
         elif settings.BMC == None:
             system = panels.Generic()
             serial_read_tread = threading.Thread(target= system.generic)
-
+ 
         serial_read_tread.start()
 
 
@@ -81,6 +81,7 @@ class BMINotify:
                     settings.STOP_READ = True
                     settings.STOP_WEEKLY_TEST = True
                     break
+          
 
 
 def main():

@@ -25,7 +25,12 @@ class SerialPort:
                     bytesize=settings.BYTESIZE,
                     timeout=settings.TIMEOUT
                 )
-            self.ser_io = io.TextIOWrapper(io.BufferedRWPair(self.ser, self.ser), encoding=self.encoding, newline=self.newline)
+            
+            if self.encoding:
+                self.ser_io = io.TextIOWrapper(io.BufferedRWPair(self.ser, self.ser), encoding=self.encoding, newline=self.newline)
+            else:
+                self.ser_io = io.TextIOWrapper(io.BufferedRWPair(self.ser, self.ser))
+        
         except Exception as e:
             logger.error(f"Could not open the COM port!")
             logger.error(f"{e}")

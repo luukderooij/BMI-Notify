@@ -17,12 +17,17 @@ class Esser:
 
     def iq8(self):
         message = ''
+        reconnect = 0
 
         ser = SerialPort(encoding='ascii', newline=None)
         ser.open()
 
         try:
             while not settings.STOP_READ:
+                if settings.STOP_READ:
+                    logger.info('Closing read thread.')
+                    break
+                
                 try:
                     data = ser.read()
                     data = data.lstrip()
@@ -67,13 +72,16 @@ class Esser:
                         message=''
 
                 except Exception as e:
+                    if reconnect > 5:
+                        settings.STOP_READ = True
                     logger.error("Error reading from serial port!")
                     logger.error(e)
                     time.sleep(5)
                     ser.open()
+                    reconnect += 1
                     continue
-                if settings.STOP_READ:
-                    logger.info('Closing read thread.')
+                except KeyboardInterrupt:
+                    settings.STOP_READ = True
 
         except KeyboardInterrupt:
             pass
