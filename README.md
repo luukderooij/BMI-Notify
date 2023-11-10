@@ -20,6 +20,14 @@ sudo -u bminotify python3 -m pip install -r requirements.txt
 sudo nano /boot/cmdline.txt
 remove: console=serial0,115200
 
+And add the following line:
+
+dtoverlay=pi3-disable-bt
+Then run the following command:
+
+sudo systemctl disable hciuart
+
+
 sudo systemctl enable bminotify
 sudo systemctl start bminotify
 sudo systemctl status bminotify
